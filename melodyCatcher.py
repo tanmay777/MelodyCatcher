@@ -3,6 +3,14 @@ import os
 import timeit
 from time import sleep
 import sys
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load("myFile.wav")
+pygame.mixer.music.play()
+while pygame.mixer.music.get_busy() == True:
+    continue
+
 
 import RPi.GPIO as GPIO
 
@@ -12,6 +20,7 @@ button2=12
 button3=13
 button4=15
 button5=16
+button6=2 #To be added
 LED1=31
 LED2=32
 LED3=33
@@ -24,6 +33,7 @@ GPIO.setup(button2,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 GPIO.setup(button3,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 GPIO.setup(button4,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 GPIO.setup(button5,GPIO.IN,pull_up_down=GPIO.PUD_UP)
+GPIO.setup(button6,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 
 GPIO.setup(LED1,GPIO.OUT)
 GPIO.setup(LED2,GPIO.OUT)
@@ -48,8 +58,27 @@ end_time=0
 print("Welcome to the game")
 x=input("Enter the number of players")
 noOfPlayers=[x]
-flag_music=("Enter 1 to start the game")
 
+print ("The music will be played in 3")
+sleep(1)
+print ("2")
+sleep(1)
+print ("1")
+sleep(1)
+pygame.mixer.init()
+pygame.mixer.music.load("myFile.wav")
+pygame.mixer.music.play()
+while pygame.mixer.music.get_busy() == True:
+    continue
+pygame.mixer.init()
+pygame.mixer.music.load("myFile.wav")
+pygame.mixer.music.play()
+while pygame.mixer.music.get_busy() == True:
+    continue
+print("Now you have to play this music using the butttons")
+print("The player who completes the fastest will win the game")
+print("All the best!")
+flag_music=("Enter 1 to start the game")
 for i in range(0,x-1,1):
     k=0
     try:
@@ -74,8 +103,13 @@ for i in range(0,x-1,1):
                 GPIO.output(LED4,0)
                 GPIO.output(LED5,0)
                 GPIO.output(LED1,1)
-                sleep(.25)
                 k=k+1
+                sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
             if(GPIO.input(button2)==0):
                 print ("Button 2 was pressed")
                 GPIO.output(LED1,0)
@@ -84,6 +118,11 @@ for i in range(0,x-1,1):
                 GPIO.output(LED5,0)
                 GPIO.output(LED2,1)
                 sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
                 k=k+1
             if(GPIO.input(button3)==0):
                 print ("Button 3 was pressed")
@@ -93,6 +132,11 @@ for i in range(0,x-1,1):
                 GPIO.output(LED5,0)
                 GPIO.output(LED3,1)
                 sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
                 k=k+1
             if(GPIO.input(button4)==0):
                 GPIO.output(LED1,0)
@@ -102,6 +146,11 @@ for i in range(0,x-1,1):
                 GPIO.output(LED4,1)
                 print ("Button 4 was pressed")
                 sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
                 k=k+1
             if(GPIO.input(button5)==0):
                 GPIO.output(LED1,0)
@@ -111,7 +160,26 @@ for i in range(0,x-1,1):
                 GPIO.output(LED5,1)
                 print ("Button 5 was pressed")
                 sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
                 k=k+1
+            if (GPIO.input(button3) == 0):
+                print("Button 3 was pressed")
+                GPIO.output(LED1, 0)
+                GPIO.output(LED2, 0)
+                GPIO.output(LED4, 0)
+                GPIO.output(LED5, 0)
+                GPIO.output(LED3, 1)
+                sleep(.25)
+                pygame.mixer.init()
+                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
+                k = k + 1
             if(k==5):
                 break
         #I will have an array. And i will compare a particular element of array
