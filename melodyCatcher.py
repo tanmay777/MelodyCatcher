@@ -66,6 +66,8 @@ print ("2")
 sleep(1)
 print ("1")
 sleep(1)
+tune=["e","d#","e","d#","e","b","d","c","a"]
+tuneNew=[]
 pygame.mixer.init()
 pygame.mixer.music.load("/Resources/furliseMainTune.mp3")
 pygame.mixer.music.play()
@@ -105,6 +107,10 @@ for i in range(0,x-1,1):
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
+                if(["e", "d#", "e", "d#", "e", "b", "d", "c"]==tuneNew):
+                    tuneNew[k]="a"
+                else:
+                    break
             if(GPIO.input(button2)==0):
                 print ("Button 2 was pressed")
                 GPIO.output(LED1,0)
@@ -119,6 +125,10 @@ for i in range(0,x-1,1):
                 while pygame.mixer.music.get_busy() == True:
                     continue
                 k=k+1
+                if (["e", "d#", "e", "d#", "e"] == tuneNew):
+                    tuneNew[k] = "b"
+                else:
+                    break
             if(GPIO.input(button3)==0):
                 print ("Button 3 was pressed")
                 GPIO.output(LED1,0)
@@ -133,6 +143,10 @@ for i in range(0,x-1,1):
                 while pygame.mixer.music.get_busy() == True:
                     continue
                 k=k+1
+                if (["e", "d#", "e", "d#", "e", "b", "d"] == tuneNew):
+                    tuneNew[k] = "c"
+                else:
+                    break
             if(GPIO.input(button4)==0):
                 GPIO.output(LED1,0)
                 GPIO.output(LED2,0)
@@ -147,6 +161,8 @@ for i in range(0,x-1,1):
                 while pygame.mixer.music.get_busy() == True:
                     continue
                 k=k+1
+                if (["e", "d#", "e", "d#", "e", "b"] == tuneNew):
+                    tuneNew[k] = "d"
             if(GPIO.input(button5)==0):
                 GPIO.output(LED1,0)
                 GPIO.output(LED2,0)
@@ -161,8 +177,14 @@ for i in range(0,x-1,1):
                 while pygame.mixer.music.get_busy() == True:
                     continue
                 k=k+1
-            if (GPIO.input(button3) == 0):
-                print("Button 3 was pressed")
+                if(["e", "d#", "e",] == tuneNew):
+                    tuneNew[k] = "d#"
+                elif (["e"] == tuneNew):
+                    tuneNew[k] = "d#"
+                else:
+                    break
+            if (GPIO.input(button6) == 0):
+                print("Button 6 was pressed")
                 GPIO.output(LED1, 0)
                 GPIO.output(LED2, 0)
                 GPIO.output(LED4, 0)
@@ -175,7 +197,16 @@ for i in range(0,x-1,1):
                 while pygame.mixer.music.get_busy() == True:
                     continue
                 k = k + 1
-            if(k==5):
+                if([]==tuneNew):
+                    tuneNew[k] = "e"
+                elif(["e","d#"]==tuneNew):
+                    tuneNew[k]= "e"
+                elif(["e", "d#", "e", "d#"]==tuneNew):
+                    tuneNew[k]="e"
+                else:
+                    break
+            if(k==6):
+                print("Congrats you completed")
                 break
         #I will have an array. And i will compare a particular element of array
     	#accodingly. If any element doesn't matches then an restart message will
