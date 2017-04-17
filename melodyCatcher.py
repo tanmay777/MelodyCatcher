@@ -1,9 +1,9 @@
+import pygame
 from __future__ import print_function
 import os
 import timeit
 from time import sleep
 import sys
-import pygame
 
 pygame.mixer.init()
 pygame.mixer.music.load("myFile.wav")
@@ -21,6 +21,7 @@ button3=13
 button4=15
 button5=16
 button6=2 #To be added
+
 LED1=31
 LED2=32
 LED3=33
@@ -66,12 +67,7 @@ sleep(1)
 print ("1")
 sleep(1)
 pygame.mixer.init()
-pygame.mixer.music.load("myFile.wav")
-pygame.mixer.music.play()
-while pygame.mixer.music.get_busy() == True:
-    continue
-pygame.mixer.init()
-pygame.mixer.music.load("myFile.wav")
+pygame.mixer.music.load("/Resources/furliseMainTune.mp3")
 pygame.mixer.music.play()
 while pygame.mixer.music.get_busy() == True:
     continue
@@ -90,7 +86,6 @@ for i in range(0,x-1,1):
                 sleep(1)
                 start_time=timeit.default_timer()
                 #timer_display(start_time)
-
             end_time=timeit.default_timer()
             os.system('clear')
             print("Time")
@@ -106,7 +101,7 @@ for i in range(0,x-1,1):
                 k=k+1
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/ANote2(9).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
@@ -119,7 +114,7 @@ for i in range(0,x-1,1):
                 GPIO.output(LED2,1)
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/BNote2(6).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
@@ -133,7 +128,7 @@ for i in range(0,x-1,1):
                 GPIO.output(LED3,1)
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/CNote(8).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
@@ -147,7 +142,7 @@ for i in range(0,x-1,1):
                 print ("Button 4 was pressed")
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/DNote(7).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
@@ -161,7 +156,7 @@ for i in range(0,x-1,1):
                 print ("Button 5 was pressed")
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/DSharpNote(2,4).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
@@ -175,7 +170,7 @@ for i in range(0,x-1,1):
                 GPIO.output(LED3, 1)
                 sleep(.25)
                 pygame.mixer.init()
-                pygame.mixer.music.load("myFile.wav")
+                pygame.mixer.music.load("/Resources/ENote(1,3,5).mp3")
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
