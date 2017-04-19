@@ -46,10 +46,16 @@ end_time=0
 os.system('clear')
 
 print("Welcome to the game")
-x=input("Enter the number of players ")
-playersValue=[x]
+x=0
+while(x<=1):
+    x=input("Enter the number of players ")
+    if(x==1):
+         print("You need atleast two players to play the game")
+
+playersValue=[]
 
 flag_music=input("Enter 1 to start the game ")
+
 
 if(flag_music):
     print ("The music will be played in ")
@@ -63,6 +69,8 @@ else:
 
 tune=["e","d#","e","d#","e","b","d","c","a"]
 completed=[]
+tuneNew=[]
+
 
 pygame.mixer.init()
 pygame.mixer.music.load("Resources/furliseMainTune.mp3")
@@ -70,14 +78,14 @@ pygame.mixer.music.play()
 while pygame.mixer.music.get_busy() == True:
     continue
 
+os.system('clear')
+
 print("\nNow you have to play this music using the butttons")
 print("The player who completes the fastest will win the game")
 print("If you do a mistake then you would have to start again")
 print("All the best!\n")
 
 flag_music=input("Enter 1 to start the competition ")
-
-#rectify k error
 
 print(x)
 for i in range(0,x,1):
@@ -90,18 +98,15 @@ for i in range(0,x,1):
     try:
         while(run):
             if(flag_music==1):
-                #play music code
                 print("\nAll the best Player {}".format(i+1))
                 flag_music=0
                 sleep(1)
                 start_time=timeit.default_timer()
-                #timer_display(start_time)
 
             end_time=timeit.default_timer()
             sys.stdout.write('\rTimer: %.2f' %(end_time - start_time))
 
             if(GPIO.input(button1)==0):
-#                print ("Button 1 was pressed")
                 GPIO.output(LED2,0)
                 GPIO.output(LED3,0)
                 GPIO.output(LED4,0)
@@ -114,19 +119,17 @@ for i in range(0,x,1):
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
-#		print(tuneNew)
                 if(["e", "d#", "e", "d#", "e", "b", "d", "c"]==tuneNew):
                     k=k+1
                     tuneNew.append("a")
                     run=0
                     completed.append(1)
-                    playersValue.append(end_time - start_time)
+                    playersValue.append(round((end_time - start_time),2))
                 else:
                     print("\nWrong button pressed. Start Again")
                     chance=chance+1
                     tuneNew=[]
             if(GPIO.input(button2)==0):
-#               print ("Button 2 was pressed")
                 GPIO.output(LED1,0)
                 GPIO.output(LED3,0)
                 GPIO.output(LED4,0)
@@ -147,7 +150,6 @@ for i in range(0,x,1):
                     chance=chance+1
                     tuneNew=[]
             if(GPIO.input(button3)==0):
-#                print ("Button 3 was pressed")
                 GPIO.output(LED1,0)
                 GPIO.output(LED2,0)
                 GPIO.output(LED4,0)
@@ -174,7 +176,6 @@ for i in range(0,x,1):
                 GPIO.output(LED5,0)
                 GPIO.output(LED6,0)
                 GPIO.output(LED4,1)
-#                print ("Button 4 was pressed")
                 sleep(.25)
                 pygame.mixer.init()
                 pygame.mixer.music.load("Resources/Dnote(7).mp3")
@@ -195,7 +196,6 @@ for i in range(0,x,1):
                 GPIO.output(LED4,0)
                 GPIO.output(LED6,0)
                 GPIO.output(LED5,1)
-#                print ("Button 5 was pressed")
                 sleep(.25)
                 pygame.mixer.init()
                 pygame.mixer.music.load("Resources/DSharpNote(2,4).mp3")
@@ -213,7 +213,6 @@ for i in range(0,x,1):
 	            tuneNew=[]
                     chance=chance+1
             if (GPIO.input(button6) == 0):
-#                print("Button 6 was pressed")
                 GPIO.output(LED1, 0)
                 GPIO.output(LED2, 0)
                 GPIO.output(LED3, 0)
@@ -226,6 +225,7 @@ for i in range(0,x,1):
                 pygame.mixer.music.play()
                 while pygame.mixer.music.get_busy() == True:
                     continue
+            
                 if([]==tuneNew):
                     tuneNew.append("e")
                     k=k+1
@@ -243,36 +243,40 @@ for i in range(0,x,1):
             if(chance==3):
 		print("You have taken all your chances")
                 completed.append(0)
-                playersValue.append(end_time - start_time)
+                playersValue.append(round((end_time - start_time),2))
                 run=0
+                k=k+1
 
     except KeyboardInterrupt:
         GPIO.cleanup()
 
-lowest=round(playersValue[0],0)
-bestplayer=0
 
 os.system('clear')
 
-print("\n")
 for i in range(0,x,1):
     if(completed[i]==1):
         print("Player "+str(i+1)+" Timing: "+str(playersValue[i]))	
     else:
         print("Player "+str(i+1)+" Timing: Does not qualifies")
-        
-    if((round(playersValue[i],0)<lowest)and(completed[i]==1)):
-        lowest=playersValue[i]
-        bestplayer=i
 
 no_of_players_completed=x
 
 for i in range(0,x,1):
     if(completed[i]==0):
         no_of_players_completed=no_of_players_completed-1
+    else: 
+        lowest=playersValue[i]
+        bestplayer=i
 
 if(no_of_players_completed!=0):
+    for i in range(0,x,1):
+        if((playersValue[i]<lowest)and(completed[i]==1)):
+            lowest=playersValue[i]
+            bestplayer=i
     print ("\nPlayer "+str(bestplayer+1),"Won the game!")
 else:
     print ("\nEverybody lost. Nobody is winner")
+
+
+
 
